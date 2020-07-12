@@ -1,0 +1,15 @@
+{
+  "name": "skotselv-sda-automation",
+  "version": "1.0.0",
+  "description": "Script to automate the use of ProPresenter",
+  "main": "monitorEvents.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Allan Jensen",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "websocket": "^1.0.31"
+  }
+}
