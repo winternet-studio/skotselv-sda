@@ -42,7 +42,7 @@ AppRuntime.wsRemoteConn.on('connect', function(connection) {
 
 	var sendMsg = function(object) {
 		var json = JSON.stringify(object);
-		util.logMsg('Sending: '+ json);
+		util.logMsg('Sending: '+ json.replace(/password"(.*?)"(.*?)"/, 'password"$1""'));
 		connection.sendUTF(json);
 	};
 
