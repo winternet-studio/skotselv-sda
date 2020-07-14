@@ -28,15 +28,8 @@ AppRuntime.wsRemoteConn.on('connectFailed', function(error) {
 	}
 	util.logMsg('WebSocket Connect error #'+ AppRuntime.websocketFailedAttempts +': ' + errStr, 'red');
 
-	// Try again later (relax in intensity if connect errors persist)
-	var retryIn;
-	if (AppRuntime.websocketFailedAttempts >= 480) {  //after another 4 hours of 1 min intervals, throttle down to 5 minutes between attempts
-		retryIn = 300;
-	} else if (AppRuntime.websocketFailedAttempts >= 240) {  //after 20 mins of 5 sec intervals, throttle down to 1 minute between attempts
-		retryIn = 60;
-	} else {
-		retryIn = 5;
-	}
+	// Try again later
+	var retryIn = 5;
 	util.logMsg('Trying again in '+ retryIn +' secs...');
 	setTimeout(function() {
 		connectToWebsocket(AppRuntime.wsRemoteUrl);
@@ -103,15 +96,8 @@ AppRuntime.wsRemoteConn.on('connect', function(connection) {
 
 		AppRuntime.websocketClosedConnectionCounter++;
 
-		// Try again later (relax in intensity if connect errors persist)
-		var retryIn;
-		if (AppRuntime.websocketClosedConnectionCounter >= 120) {  //after 10 mins of 5 sec intervals, throttle down to 1 minute between attempts
-			retryIn = 60;
-		} else if (AppRuntime.websocketClosedConnectionCounter >= 2) {  //after 2 immediate attempts, throttle down to 5 secs between attempts
-			retryIn = 5;
-		} else {
-			retryIn = 0;
-		}
+		// Try again later
+		var retryIn = 5;
 		util.logMsg('Reconnecting call logger in '+ retryIn +' secs...');
 		setTimeout(function() {
 			connectToWebsocket(AppRuntime.wsRemoteUrl);
