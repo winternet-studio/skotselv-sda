@@ -3,8 +3,8 @@
 
 
 -- CONFIGURATION
-remoteControlKeyboardID = '3DFEA16',  -- the Logitech R400 Wireless Presentation Remote (use code piece below for finding it - see also https://github.com/me2d13/luamacros/wiki/Basic-Functions)
-webserverHost = 'http://localhost',  -- scheme and hostname
+remoteControlKeyboardID = '3DFEA16'  -- the Logitech R400 Wireless Presentation Remote (use code piece below for finding it - see also https://github.com/me2d13/luamacros/wiki/Basic-Functions)
+webserverHost = 'http://localhost'  -- scheme and hostname
 
 
 -- Used for finding the keyboardID:
