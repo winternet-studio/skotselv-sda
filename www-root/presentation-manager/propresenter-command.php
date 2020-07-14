@@ -9,14 +9,24 @@ require('vendor/autoload.php');
 
 $config = require(__DIR__ .'/config.php');
 
+try {
+	$remoteClient = new TextalkWebSocket\Client($config['propresenterWebsocket']['server']['scheme'] .'://'. $config['propresenterWebsocket']['server']['host'] .':'. $config['propresenterWebsocket']['server']['port'] .'/remote', ['timeout' => 10]);
+} catch (\Exception $e) {
+	echo 99;
+	exit;
+}
 
-$remoteClient = new TextalkWebSocket\Client($config['propresenterWebsocket']['scheme'] .'://'. $config['propresenterWebsocket']['host'] .':'. $config['propresenterWebsocket']['port'] .'/remote', ['timeout' => 10]);
 
-
-echo 'Authenticating...<br>';
-$json = json_encode(['action' => 'authenticate', 'protocol' => $config['propresenterWebsocket']['protocol'], 'password' => $config['propresenterWebsocket']['password']]);
+// echo 'Authenticating...<br>';
+$json = json_encode(['action' => 'authenticate', 'protocol' => $config['propresenterWebsocket']['server']['protocol'], 'password' => $config['propresenterWebsocket']['password']]);
 $remoteClient->send($json);
-echo $remoteClient->receive() .'<br>';
+$response = $remoteClient->receive();  //must wait for response!
+
+
+// Show all library documents
+// $remoteClient->send('{"action":"libraryRequest"}');
+// $response = $remoteClient->receive();
+// echo $response;
 
 
 // Docs: https://github.com/jeffmikels/ProPresenter-API/blob/master/Pro7.md
@@ -36,10 +46,12 @@ if ($_GET['act'] == 'next-slide') {
 } else {
 	die('No valid command given.');
 }
-echo $json .'<br>';
+// echo $json .'<br>';
 $remoteClient->send($json);
 if (!$_GET['skiplog']) {
 	file_put_contents(__DIR__ .'/keypresses.log', date('Y-m-d H:i:s') ."\t". $_GET['act'] . PHP_EOL, FILE_APPEND);
 }
 
-// echo $remoteClient->receive();
+$response = $remoteClient->receive();
+
+echo 0;
