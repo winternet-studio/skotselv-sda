@@ -42,7 +42,7 @@ AppRuntime.wsRemoteConn.on('connect', function(connection) {
 
 	var sendMsg = function(object) {
 		var json = JSON.stringify(object);
-		util.logMsg('Sending: '+ json.replace(/password"(.*?)"(.*?)"/, 'password"$1""'));
+		util.logMsg('Sending: '+ json.replace(/password"(.*?)"(.*?)"/, 'password"$1""'), 'green');
 		connection.sendUTF(json);
 	};
 
@@ -53,7 +53,7 @@ AppRuntime.wsRemoteConn.on('connect', function(connection) {
 		AppRuntime.websocketClosedConnectionCounter = 0;  //"on connect" can't be used because we might connect successfully but then run into a problem later that closes the connection
 
 		if (message.type === 'utf8') {
-			util.logMsg('Received:');
+			util.logMsg('Received:', 'red');
 			util.logMsg(message.utf8Data);
 			var payload = JSON.parse(message.utf8Data);
 			// console.log(payload);
