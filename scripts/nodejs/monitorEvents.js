@@ -110,7 +110,7 @@ AppRuntime.wsRemoteConn.on('connect', function(connection) {
 
 		// Try again later
 		var retryIn = 5;
-		util.logMsg('Reconnecting call logger in '+ retryIn +' secs...');
+		util.logMsg('Reconnecting to ProPresenter in '+ retryIn +' secs...');
 		setTimeout(function() {
 			connectToWebsocket(AppRuntime.wsRemoteUrl);
 		}, retryIn*1000);
