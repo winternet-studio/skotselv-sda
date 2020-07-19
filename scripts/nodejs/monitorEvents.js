@@ -79,7 +79,12 @@ AppRuntime.wsRemoteConn.on('connect', function(connection) {
 						}
 					}
 				}
-				// NOTE: there is no way to know when a slide is clared
+			} else if (payload.action === 'clearText') {
+				// Slide was clared
+				if (!AppRuntime.currentStageDisplayLayout || AppRuntime.currentStageDisplayLayout === AppSettings.propresenterUUIDs.stageDisplayMusicLayout) {
+					sendMsg({action: 'stageDisplayChangeLayout', stageLayoutUUID: AppSettings.propresenterUUIDs.stageDisplayStandardLayout, stageScreenUUID: AppSettings.propresenterUUIDs.stageScreen});
+					AppRuntime.currentStageDisplayLayout = AppSettings.propresenterUUIDs.stageDisplayStandardLayout;
+				}
 			}
 		} else {
 			util.logMsg('Whoops, '+ message.type +' message received from Websocket!', 'red');
