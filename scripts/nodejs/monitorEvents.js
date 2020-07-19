@@ -56,7 +56,7 @@ AppRuntime.wsRemoteConn.on('connect', function(connection) {
 			util.logMsg('Received:');
 			util.logMsg(message.utf8Data);
 			var payload = JSON.parse(message.utf8Data);
-			console.log(payload);
+			// console.log(payload);
 
 			if (payload.action === 'authenticate' && payload.authenticated) {
 				AppRuntime.serverInfo = Object.assign({}, payload);
@@ -65,6 +65,10 @@ AppRuntime.wsRemoteConn.on('connect', function(connection) {
 					payload.presentationPath = payload.presentationPath.replace(/\\/g, '/');  //streamline to use only forward slashes
 
 					// sendMsg({'action':'stageDisplaySets'});  //use for finding new UUIDs
+
+					if (AppRuntime.textClearedTimer) {
+						clearTimeout(AppRuntime.textClearedTimer);
+					}
 
 					// Only send command to change the layout when is it different that what we within this script know that it was previously - or if we don't know what is was
 					if (payload.presentationPath.indexOf('/Libraries/Sanger') > -1) {
@@ -81,10 +85,13 @@ AppRuntime.wsRemoteConn.on('connect', function(connection) {
 				}
 			} else if (payload.action === 'clearText') {
 				// Slide was clared
-				if (!AppRuntime.currentStageDisplayLayout || AppRuntime.currentStageDisplayLayout === AppSettings.propresenterUUIDs.stageDisplayMusicLayout) {
-					sendMsg({action: 'stageDisplayChangeLayout', stageLayoutUUID: AppSettings.propresenterUUIDs.stageDisplayStandardLayout, stageScreenUUID: AppSettings.propresenterUUIDs.stageScreen});
-					AppRuntime.currentStageDisplayLayout = AppSettings.propresenterUUIDs.stageDisplayStandardLayout;
-				}
+				// NOTE: we add a delay to this because this event occurs on every single slide change even within a song
+				AppRuntime.textClearedTimer = setTimeout(function() {
+					if (!AppRuntime.currentStageDisplayLayout || AppRuntime.currentStageDisplayLayout === AppSettings.propresenterUUIDs.stageDisplayMusicLayout) {
+						sendMsg({action: 'stageDisplayChangeLayout', stageLayoutUUID: AppSettings.propresenterUUIDs.stageDisplayStandardLayout, stageScreenUUID: AppSettings.propresenterUUIDs.stageScreen});
+						AppRuntime.currentStageDisplayLayout = AppSettings.propresenterUUIDs.stageDisplayStandardLayout;
+					}
+				}, 2000);
 			}
 		} else {
 			util.logMsg('Whoops, '+ message.type +' message received from Websocket!', 'red');
