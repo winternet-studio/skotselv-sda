@@ -54,4 +54,8 @@ if (!$_GET['skiplog']) {
 
 $response = $remoteClient->receive();
 
+usleep(100000);  //maybe not needed, but we do it just for extra safety
+
+$remoteClient->close();  //nicely close the connection (hopefully helps prevent ProPresenter crashes - if they haven't already fixed their program in v7.2)
+
 echo 0;
