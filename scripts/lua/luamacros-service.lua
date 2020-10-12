@@ -3,12 +3,12 @@
 
 
 -- CONFIGURATION
-remoteControlKeyboardID = '3DFEA16'  -- the Logitech R400 Wireless Presentation Remote (use code piece below for finding it - see also https://github.com/me2d13/luamacros/wiki/Basic-Functions)
+remoteControlKeyboardID = '35EB7C97'  -- the Logitech R400 Wireless Presentation Remote (use code piece below for finding it - see also https://github.com/me2d13/luamacros/wiki/Basic-Functions)
 webserverHost = 'http://localhost/presentation-manager'  -- scheme and hostname
 
 
 -- Used for finding the keyboardID:
--- lmc_device_set_name('MACROS')
+-- lmc_assign_keyboard('MACROS')
 -- lmc_print_devices()
 
 
@@ -25,16 +25,19 @@ lmc_device_set_name('MACROS', remoteControlKeyboardID)
 
 -- PageUp
 lmc_set_handler('MACROS', 33, 1, function()
+	print('PageUp pressed')
 	response = lmc_http_get(webserverHost .. '/propresenter-command.php?act=prev-slide');
 	if (response == 99) then
 		-- pass through
 		lmc_send_input(33, 0, 0) -- press
 		lmc_send_input(33, 0, 2) -- release
 	end
+	-- IN CASE WE WANT TO USE NODE INSTEAD: response = lmc_spawn('node.exe', 'c:\\Data\\scripts\\nodejs\\triggerEvents.js', 'next-slide')
 end)
 
 -- PageDown
 lmc_set_handler('MACROS', 34, 1, function()
+	print('PageDown pressed')
 	response = lmc_http_get(webserverHost .. '/propresenter-command.php?act=next-slide');
 	if (response == 99) then
 		-- pass through
@@ -45,6 +48,7 @@ end)
 
 -- .
 lmc_set_handler('MACROS', 190, 1, function()
+	print('. pressed')
 	response = lmc_http_get(webserverHost .. '/propresenter-command.php?act=clear-slide');
 	if (response == 99) then
 		-- pass through
@@ -55,6 +59,7 @@ end)
 
 -- F5
 lmc_set_handler('MACROS', 116, 1, function()
+	print('F5 pressed')
 	response = lmc_http_get(webserverHost .. '/propresenter-command.php?act=play-pause-audio');
 	if (response == 99) then
 		-- pass through
