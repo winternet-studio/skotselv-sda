@@ -19,10 +19,6 @@ var AppRuntime = {
 	serverInfo: null
 };
 
-const fs = require('fs');
-const filename = 'c:\\Data\\triggerEvents script was run.txt';
-fs.closeSync(fs.openSync(filename, 'w'));
-
 // Read command line options
 var act = process.argv[2];
 var skiplog = process.argv[3];
