@@ -3,6 +3,7 @@
 // Connects to ProPresenter websocket server and listens for events
 // Specifically we listen for slide change events to determine if we should change display stage layout
 // This is called by an AutoHotKey script that starts when the computer starts up
+// This script is very similar to triggerEvents.js
 
 var AppSettings = require('./config');
 var util = require('./utilityCommon');
