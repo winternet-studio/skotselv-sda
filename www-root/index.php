@@ -21,7 +21,7 @@
 
 <div class="container">
 
-	<div><a href="/propresenter-remote.php" class="btn btn-primary">ProPresenter fjernkontroll</a></div>
+	<div><a href="presentation-manager/propresenter-remote.php" class="btn btn-primary">ProPresenter fjernkontroll</a></div>
 	<br>
 	<div><a href="http://t2t2.github.io/obs-tablet-remote/" class="btn btn-primary">OBS fjernkontroll</a></div>
 

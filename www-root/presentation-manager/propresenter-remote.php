@@ -1,3 +1,4 @@
+<!-- Webpage that can be used as a remote control for ProPresenter instead of the hardware clicker -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,14 +38,17 @@ function getRequest(url) {
 </head>
 <body>
 
-
-<button onclick="getRequest('/presentation-manager/propresenter-command.php?act=prev-slide&redir=home');return false;" style="font-size: 1200%; width: 100%; padding-top: 50px; padding-bottom: 50px">Previous</button>
-
 <div class="status"></div>
 
-<br><br><br><br><br><br><br><br>
+<button onclick="getRequest('/presentation-manager/propresenter-command.php?act=prev-slide');return false;" style="font-size: 300%; width: 100%; padding-top: 30px; padding-bottom: 30px">Previous</button>
 
-<button onclick="getRequest('/presentation-manager/propresenter-command.php?act=next-slide&redir=home');return false;" style="font-size: 1200%; width: 100%; padding-top: 50px; padding-bottom: 50px">Next</button>
+<br><br><br><br>
+
+<button onclick="getRequest('/presentation-manager/propresenter-command.php?act=next-slide');return false;" style="font-size: 300%; width: 100%; padding-top: 30px; padding-bottom: 30px">Next</button>
+
+<br><br><br><br>
+
+<button onclick="getRequest('/presentation-manager/propresenter-command.php?act=clear-slide');return false;" style="font-size: 300%; width: 100%; padding-top: 30px; padding-bottom: 30px">Clear slide</button>
 
 
 </body>
